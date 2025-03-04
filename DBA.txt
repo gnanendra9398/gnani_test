@@ -1,0 +1,198 @@
+DATABASE CREATION 
+
+ROLES
+
+Create role gnani;
+
+\du----check roles in psql
+
+SELECT rolname FROM pg_roles;
+
+Alter role with login;
+
+
+SUPER USER 
+
+
+HAS HIGHEST PRIVILAGES
+
+create role john  superuser
+
+Alter role john superuser;
+
+Alter role john nosuperuser;
+
+
+TABLE SPACE ---GLOBAL---GLOBAL DATABASE
+---------------DEFAULT---USERS DATA
+
+CREATE TABLESPACE XYZ
+OWNER GNANI
+LOCATION path
+
+
+\l---databases 
+
+select datname from pg_database
+
+
+CREATE DATABASE database_name
+WITH
+   [OWNER =  john]
+   [TEMPLATE = template]
+   [ENCODING = 'UT8']
+   [LC_COLLATE = collate]
+   [LC_CTYPE = ctype]
+   [TABLESPACE = tablespace_name]
+   [ALLOW_CONNECTIONS = true | false]
+   [CONNECTION LIMIT = 1000]
+   [IS_TEMPLATE = true | false ];
+   
+   
+   ALTER COMMANDS
+   
+   alter database aml rename to aml_2;
+   
+   SELECT * FROM pg_stat_activity;
+   
+   SELECT
+    pg_terminate_backend (pid)
+FROM
+    pg_stat_activity
+WHERE
+    datname = 'db';
+   
+   ALTER DATABASE database_name
+OWNER TO new_owner | current_user | session_user;
+
+ALTER DATABASE database_name
+SET TABLESPACE new_tablespace;
+
+
+
+select pg_relation_size('actor');
+
+SELECT
+    pg_size_pretty (pg_relation_size('actor')) size;
+pg_size_pretty() function to format the size.
+pg_relation_size() function to get the size of a table.
+pg_total_relation_size() function to get the total size of a table.
+pg_database_size() function to get the size of a database.
+pg_indexes_size() function to get the size of an index.
+pg_total_index_size() function to get the size of all indexes on a table.
+pg_tablespace_size() function to get the size of a tablespace.
+pg_column_size() function to obtain the size of a column of a specific type.
+
+
+
+
+GRANT USAGE ON SCHEMA schema_name 
+TO role_name;
+
+
+GRANT CREATE ON SCHEMA schema_name 
+TO user_name;
+
+alter schema aml rename to xyz
+
+
+alter schema aml owner to mike
+
+
+
+
+GRANT ALL
+ON ALL TABLES
+IN SCHEMA "public"
+TO joe;
+
+
+REVOKE ALL ON film FROM jim;
+
+
+
+select table_catalog,table_schema,
+       table_name, table_type,
+       (xpath('/row/cnt/text()', xml_count))[1]::text::int as row_count
+from (
+  select table_catalog,table_name, table_schema, table_type,
+         query_to_xml(format('select count(*) as cnt from %I.%I', table_schema, table_name), false, true, '') as xml_count
+  from information_schema.tables
+  where table_schema = 'n7aml'
+) t order by 4,3
+
+
+SELECT  pg_size_pretty(pg_total_relation_size ('n7cbs.b_tran_acct_loan_rec_d')) as size  -----8192
+from information_schema.tables
+where table_schema ='pqr'
+
+select pg_size_pretty(pg_database_size('abc_clone'))------7961-----7977
+
+
+VACUUM VERBOSE analyze n7cbs.b_tran_acct_loan_rec_d ;
+
+select * from pg_stat_user_tables;
+
+select * from n7cbs.b_tran_acct_loan_rec_d;
+
+
+
+SELECT *
+FROM most_popular_films 
+INTERSECT
+SELECT *
+FROM top_rated_films;
+
+
+Union
+
+SELECT select_list
+FROM A
+UNION
+SELECT select_list
+FROM B;
+
+
+SELECT select_list
+FROM A
+UNION ALL
+SELECT select_list
+FROM B;
+
+
+
+
+SELECT * FROM top_rated_films
+EXCEPT 
+SELECT * FROM most_popular_films;
+
+
+
+
+
+SELECT table_name
+FROM information_schema.tables
+WHERE table_schema = 'xyz';
+
+
+update employee set name = 'robin' where id=306;
+
+ALTER TABLE employee
+RENAME COLUMN age to roll_no;
+
+alter table employee add column roll_no integer;
+
+ALTER TABLE EMPLOYEE
+ADD CONSTRAINT NEWID NOT NULL(roll_no);
+
+
+alter table employee drop column roll_no;
+
+
+select *
+from information_schema."columns" c 
+where table_schema='n7cbs'
+and table_name not like 'vw_%'
+and c.column_name like 'cbr_id'
+
+
