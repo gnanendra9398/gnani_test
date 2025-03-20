@@ -1,0 +1,24 @@
+in 10.0.0.8
+ 
+1.restore los schema from n7db_bwda_los_stage to n7db_bwda_cb7_stage
+2.restore los schema from n7db_bwda_los_migration to n7db_bwda_cb7_migration
+ 
+for now keep same schema name as los
+ 
+
+
+pg_dump -h 10.0.0.8 -U losdbo -W -F p -d n7db_bwda_los_stage -n los > /home/gnanendra/DB_backup/n7db_bwda_los_stage_bkp.sql
+
+psql -h 10.0.0.8 -d n7db_bwda_cb7_stage -U n7dbo -f n7db_bwda_los_stage_bkp.sql
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+pg_dump -h 10.0.0.8 -U losdbo -W -F p -d n7db_bwda_los_migration -n los > /home/gnanendra/DB_backup/n7db_bwda_los_migration_bkp.sql
+
+psql -h 10.0.0.8 -d n7db_bwda_cb7_migration -U n7dbo -f n7db_bwda_los_migration_bkp.sql
+-f .\Step2_db_script\the_script.sql -f .\Step3_metadata\the_script.sql
+
+------------------------------------------------------------------------------------
+
+pg_dump -h 10.0.1.11 -U n7dbo -W -F p -d cb7_p11_12dec24 -n n7aml > /home/gnanendra/Db_Backup/cb7_p11_12dec24_aml_bkp.sql
+psql -h 10.0.1.11 -d n7_db_from_git_31jan25 -U n7dbo -f cb7_p11_12dec24_aml_bkp.sql
