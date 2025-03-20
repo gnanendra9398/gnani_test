@@ -1,0 +1,36 @@
+Menu 
+
+1.Job Schedular
+--a_menu_m---job schedular---menu_id-903
+
+add in a_component_m
+       a_component_d
+	   
+Update component id details in a_menu_m table 
+
+
+sub types in new screen  
+ -------------------------job1--------900001
+   -----------------------job2--------900002
+tabs--------xyz----9000051
+            abc----9000052
+
+
+2.a_menu_work_flow_m insert two records with name schedular with below menu ids
+
+sub types in new screen batch job ---900001
+
+   -----------------------abc--------900002
+   
+3.a_menu_work_flow_d ---tabs---
+  menu id taken from a_menu_work_flow_m an workflow menu id from a menu m table
+
+   
+
+
+
+
+
+
+
+
